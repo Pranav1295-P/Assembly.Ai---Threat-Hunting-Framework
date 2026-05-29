@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>History · Assembly.AI</title>
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="app-header">
+  <div class="bar">
+    <img src="/assets/logo.svg" class="logo" alt="Assembly.AI" />
+    <div class="titles">
+      <div class="brand">Assembly.AI</div>
+      <div class="sub">AI-Sec-Ops · History</div>
+    </div>
+    <nav>
+      <a href="/">Analyze</a>
+      <a href="/history.html">History</a>
+      <a href="#" id="health-link"><span class="status-dot"></span><span id="health-text">Service</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <section class="card">
+    <h2>Database overview</h2>
+    <div class="verdict-grid" id="stats-grid"></div>
+    <div class="muted" id="db-meta">Loading database info…</div>
+  </section>
+
+  <section class="card">
+    <h2>Recent analyses</h2>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:12px;">
+      <label class="muted" style="font-size:13px;">Filter:</label>
+      <button class="btn outline" data-verdict="">All</button>
+      <button class="btn outline" data-verdict="malicious">Malicious</button>
+      <button class="btn outline" data-verdict="suspicious">Suspicious</button>
+      <button class="btn outline" data-verdict="benign">Benign</button>
+      <span style="flex:1"></span>
+      <button class="btn outline" id="refresh">Refresh</button>
+    </div>
+    <div id="history-table"><p class="muted">Loading…</p></div>
+  </section>
+
+</div>
+</main>
+
+<footer class="app-footer">
+  Proudly Designed And Developed At <span>B.M.S. College Of Engineering, Bengaluru, India</span>
+</footer>
+
+<script src="/js/app.js"></script>
+<script>renderHistoryPage();</script>
+</body>
+</html>

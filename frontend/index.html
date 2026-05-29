@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Assembly.AI · AI-Sec-Ops</title>
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="app-header">
+  <div class="bar">
+    <img src="/assets/logo.svg" class="logo" alt="Assembly.AI" />
+    <div class="titles">
+      <div class="brand">Assembly.AI</div>
+      <div class="sub">AI-Sec-Ops</div>
+    </div>
+    <nav>
+      <a href="/">Analyze</a>
+      <a href="/history.html">History</a>
+      <a href="https://bazaar.abuse.ch/" target="_blank" rel="noopener">MalwareBazaar</a>
+      <a href="https://www.virustotal.com/" target="_blank" rel="noopener">VirusTotal</a>
+      <a href="#" id="health-link"><span class="status-dot"></span><span id="health-text">Service</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <section class="hero">
+    <div>
+      <h1>AI-powered malware analysis &amp; threat-hunting framework</h1>
+      <p>
+        Upload any file — executable, document, script, archive — and Assembly.AI performs
+        hybrid static analysis, ML classification and LLM-driven attack-chain reconstruction.
+        It maps observables to MITRE ATT&amp;CK, extracts IOCs, and generates a forensic-grade PDF report.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">PE / ELF / Mach-O</span>
+        <span class="tag">Office macros</span>
+        <span class="tag">PDFs &amp; scripts</span>
+        <span class="tag">MITRE ATT&amp;CK</span>
+        <span class="tag">IOC extraction</span>
+        <span class="tag">PDF reports</span>
+      </div>
+    </div>
+    <div class="hero-illustration">
+<code>$ curl -F file=@sample.exe \
+       http://127.0.0.1:5000/api/analyze
+
+{
+  "verdict":      "malicious",
+  "severity":     "high",
+  "confidence":   0.93,
+  "mitre":        [ T1059, T1055, T1547.001 ],
+  "report_url":   "/api/report/&lt;id&gt;"
+}</code>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Submit a sample for analysis</h2>
+    <p class="muted">
+      Maximum upload size: <span id="max-size">64</span> MB. Files are kept locally; no data
+      is sent to third parties besides the configured LLM provider.
+    </p>
+
+    <label class="dropzone" id="dropzone" for="file-input">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#13315C" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 16V4M12 4l-4 4M12 4l4 4"/>
+        <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+      </svg>
+      <div class="big">Drop a file here, or click to browse</div>
+      <div class="small" id="file-pick">Any binary, document, archive, or script.</div>
+      <input id="file-input" type="file" />
+    </label>
+
+    <div class="actions">
+      <button class="btn" id="analyze-btn" disabled>Analyze</button>
+      <button class="btn outline" id="reset-btn" disabled>Clear</button>
+    </div>
+
+    <div class="loader-wrap" id="loader">
+      <div class="progress"><div></div></div>
+      <div class="steps" id="steps">
+        <span class="step now"   data-step="hash">Hashing</span>
+        <span class="step"       data-step="static">Static analysis</span>
+        <span class="step"       data-step="ml">ML classifier</span>
+        <span class="step"       data-step="ai">LLM investigation</span>
+        <span class="step"       data-step="report">PDF report</span>
+      </div>
+    </div>
+
+    <div id="error" class="error-box" style="display:none"></div>
+  </section>
+
+  <section class="card">
+    <h2>How it works</h2>
+    <div class="section-grid">
+      <div>
+        <ol style="margin:0; padding-left:18px;">
+          <li><b>Static intake</b> — magic-bytes ID, hashes, entropy, PE/ELF parsing, packer hints, suspicious-API spotting.</li>
+          <li><b>IOC extraction</b> — URLs, domains, IPs, registry keys, file paths, mutexes, crypto wallets.</li>
+          <li><b>ML classification</b> — gradient-boosted model over 13 PE features predicts malicious probability.</li>
+          <li><b>LLM investigation</b> — Claude / OpenAI receives the structured dossier and reconstructs the attack chain.</li>
+          <li><b>MITRE mapping</b> — heuristic + AI techniques merged into a single coverage table.</li>
+          <li><b>PDF report</b> — executive summary, attack flow, process tree, IOC tables, recommendations.</li>
+        </ol>
+      </div>
+      <div>
+        <div class="kv">
+          <div class="k">Backend</div><div class="v">Flask · Python 3.11</div>
+          <div class="k">Static analysis</div><div class="v">pefile · custom magic + entropy</div>
+          <div class="k">ML</div><div class="v">scikit-learn GradientBoosting (PE features)</div>
+          <div class="k">LLM</div><div class="v">Anthropic Claude · OpenAI fallback</div>
+          <div class="k">Report</div><div class="v">ReportLab · matplotlib · networkx</div>
+          <div class="k">Frontend</div><div class="v">Vanilla HTML/CSS/JS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="app-footer">
+  Proudly Designed And Developed At <span>B.M.S. College Of Engineering, Bengaluru, India</span>
+</footer>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

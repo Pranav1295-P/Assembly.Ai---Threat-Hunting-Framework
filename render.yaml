@@ -1,0 +1,42 @@
+# Render.com Blueprint — one-click deploy for Assembly.AI
+# Push this repo to GitHub, then on Render: "New → Blueprint" → pick this repo.
+# Render reads this file and provisions the web service + Postgres database.
+services:
+  - type:    web
+    name:    assemblyai-web
+    runtime: python
+    plan:    free
+    buildCommand: |
+      pip install --upgrade pip wheel
+      pip install -r backend/requirements.txt
+      python backend/ml_models/train_model.py
+    startCommand: |
+      cd backend && gunicorn --workers 2 --threads 4 --timeout 120 \
+        --bind 0.0.0.0:$PORT "app:create_app()"
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: FLASK_HOST
+        value: 0.0.0.0
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: DB_ALLOW_SQLITE_FALLBACK
+        value: "1"
+      # Pulled automatically from the Postgres add-on below
+      - key: DATABASE_URL
+        fromDatabase:
+          name:     assemblyai-db
+          property: connectionString
+      # Add your free LLM key in the Render dashboard
+      # ( Dashboard → Service → Environment → Add Environment Variable )
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+
+databases:
+  - name: assemblyai-db
+    plan: free
+    databaseName: aisecops
+    user:         aisecops

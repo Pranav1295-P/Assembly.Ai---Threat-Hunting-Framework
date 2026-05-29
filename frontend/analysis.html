@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Analysis · Assembly.AI</title>
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="app-header">
+  <div class="bar">
+    <img src="/assets/logo.svg" class="logo" alt="Assembly.AI" />
+    <div class="titles">
+      <div class="brand">Assembly.AI</div>
+      <div class="sub">AI-Sec-Ops · Analysis</div>
+    </div>
+    <nav>
+      <a href="/">New analysis</a>
+      <a href="/history.html">History</a>
+      <a href="#" id="report-link">Open PDF</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <section class="card" id="header-card">
+    <h2 id="file-title">Loading…</h2>
+    <div class="muted" id="file-sub"></div>
+
+    <div class="verdict-grid" id="verdict-grid"></div>
+
+    <div class="actions">
+      <a class="btn" id="download-pdf" href="#" target="_blank">Download PDF report</a>
+      <a class="btn outline" href="/">Analyze another</a>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Executive Summary</h2>
+    <p id="exec-summary" class="muted"></p>
+  </section>
+
+  <section class="card" id="chat-card">
+    <h2>AI Analyst <span class="chat-provider-badge" id="chat-provider"></span></h2>
+    <p class="muted" style="margin-top:-4px;">
+      Ask follow-up questions about this sample. The analyst has the full dossier in context.
+    </p>
+
+    <div class="chat-suggestions" id="chat-suggestions">
+      <button class="chip" data-q="Why is this sample malicious? Walk me through the strongest evidence.">Why is it malicious?</button>
+      <button class="chip" data-q="Generate a YARA rule that would detect this sample and similar variants.">Generate a YARA rule</button>
+      <button class="chip" data-q="Write a Sigma detection rule for the behaviour seen in this sample.">Generate a Sigma rule</button>
+      <button class="chip" data-q="What would this malware do if it executed on a Windows domain controller?">Impact on a domain controller?</button>
+      <button class="chip" data-q="Explain what this sample does in plain, non-technical language for a manager.">Explain for a manager</button>
+      <button class="chip" data-q="List concrete remediation and containment steps for an incident responder.">Remediation steps</button>
+    </div>
+
+    <div class="chat-window" id="chat-window">
+      <div class="chat-empty" id="chat-empty">
+        No messages yet. Ask a question or pick a suggestion above.
+      </div>
+    </div>
+
+    <form class="chat-input" id="chat-form" autocomplete="off">
+      <textarea id="chat-text" rows="1"
+        placeholder="Ask the analyst about this sample…"></textarea>
+      <button type="submit" class="btn" id="chat-send">Send</button>
+      <button type="button" class="btn outline" id="chat-clear" title="Clear conversation">Clear</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>File Information</h2>
+    <div class="kv" id="file-kv"></div>
+  </section>
+
+  <div class="section-grid">
+    <section class="card">
+      <h2>Suspicious API Calls</h2>
+      <div id="apis-block"><p class="muted">No suspicious imports identified.</p></div>
+    </section>
+    <section class="card">
+      <h2>ML Classifier</h2>
+      <div class="kv" id="ml-kv"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Reconstructed Attack Chain</h2>
+    <div id="chain-block"><p class="muted">No attack chain reconstructed.</p></div>
+  </section>
+
+  <section class="card">
+    <h2>Process Tree</h2>
+    <pre id="tree-block" class="tree">—</pre>
+  </section>
+
+  <section class="card">
+    <h2>MITRE ATT&amp;CK Coverage</h2>
+    <div id="mitre-block"><p class="muted">No techniques mapped.</p></div>
+  </section>
+
+  <section class="card">
+    <h2>Indicators of Compromise</h2>
+    <div id="iocs-block"></div>
+  </section>
+
+  <section class="card">
+    <h2>PE Sections</h2>
+    <div id="sections-block"><p class="muted">Not a PE file.</p></div>
+  </section>
+
+  <section class="card">
+    <h2>Recommendations</h2>
+    <ul id="recs"></ul>
+  </section>
+
+  <section class="card">
+    <h2>Raw JSON</h2>
+    <a class="json-toggle" id="toggle-raw">Show full JSON dossier</a>
+    <pre class="raw" id="raw" style="display:none"></pre>
+  </section>
+
+</div>
+</main>
+
+<footer class="app-footer">
+  Proudly Designed And Developed At <span>B.M.S. College Of Engineering, Bengaluru, India</span>
+</footer>
+
+<script src="/js/app.js"></script>
+<script>renderAnalysisPage();</script>
+</body>
+</html>
